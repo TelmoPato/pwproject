@@ -1,0 +1,83 @@
+{% extends 'bandas/layout.html' %}
+
+{% block style %}
+<style>
+    .btn-blue,
+    .btn-red,
+    .btn-black {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-red {
+        background-color: red;
+    }
+
+    .btn-black {
+        background-color: black;
+        padding: 15px 30px;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .bandas-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .banda {
+        background-color: blue;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .band-link {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    {% comment %} Adicionando regras de mídia para dispositivos móveis {% endcomment %}
+    @media only screen and (max-width: 600px) {
+        .btn-blue,
+        .btn-red,
+        .btn-black {
+            display: block;
+            margin: 10px auto;
+        }
+
+        .btn-black {
+            padding: 15px 25px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Lista de Bandas:</h1>
+<div class="bandas-container">
+    {% for banda in bandas %}
+        <div class="banda">
+            <a href="{% url 'bandas:banda' banda.nome %}" class="band-link">{{ banda.nome }}</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'bandas:apagar_banda' banda.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-red">Apagar Banda</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'bandas:nova_banda' %}" class="btn btn-black">Adicionar Banda</a>
+    {% endif %}
+</div>
+{% endblock %}

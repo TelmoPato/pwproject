@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Curso</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            display: flex;
+            flex-direction: column; /* Alinha elementos verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            min-height: 100vh; /* Ocupa pelo menos 100% da altura da viewport */
+            margin: 0; /* Remove margem padrão do body */
+        }
+        form {
+            max-width: 800px;
+            width: 100%; /* Para garantir que o formulário não ultrapasse a largura máxima */
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: calc(100% - 20px); /* Largura total do formulário menos 20px de padding */
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adicionar Curso</h1>
+    {% if messages %}
+        <div class="error-message">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_nome">Nome:</label>
+        {{ form.nome }}
+        <label for="id_apresentacao">Apresentação:</label>
+        {{ form.apresentacao }}
+        <label for="id_objetivos">Objetivos:</label>
+        {{ form.objetivos }}
+        <label for="id_competencias">Competências:</label>
+        {{ form.competencias }}
+        <label for="id_disciplinas">Disciplinas:</label>
+        {{ form.disciplinas }}
+        <button type="submit">Salvar Curso</button>
+    </form>
+</body>
+</html>

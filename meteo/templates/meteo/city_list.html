@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Cidades</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Centraliza verticalmente */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .city-block {
+            background-color: #007bff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .city-name {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .city-name:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Cidades</h1>
+    <ul>
+        {% for city in cities %}
+            <li class="city-block">
+                <a href="{% url 'city_weather' city.globalIdLocal %}" class="city-name">{{ city.local }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

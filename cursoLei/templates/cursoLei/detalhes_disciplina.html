@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Disciplina</title>
+    <style>
+        body {
+            background-color: #000; /* Cor de fundo preta */
+            color: #fff; /* Cor do texto branco */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .disciplina-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+        .titulo {
+            font-size: 36px; /* Tamanho maior para o título */
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+        .detalhes {
+            font-size: 18px; /* Tamanho maior para os detalhes */
+            margin-bottom: 20px;
+        }
+        .curso-link {
+            display: block;
+            padding: 10px 20px;
+            background-color: #3498db; /* Cor de fundo do link */
+            color: #fff; /* Cor do texto do link */
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .curso-link:hover {
+            background-color: #2980b9; /* Cor de fundo do link quando hover */
+        }
+        /* Estilo apenas para os títulos das seções */
+        .detalhes p strong {
+            color: #800080; /* Cor roxa */
+            text-decoration: underline; /* Sublinhado */
+        }
+
+        /* Regras de mídia para dispositivos móveis */
+        @media only screen and (max-width: 600px) {
+            .titulo {
+                font-size: 24px; /* Reduzindo o tamanho do título para dispositivos móveis */
+                margin-bottom: 20px;
+                margin-top: 20px;
+            }
+            .detalhes {
+                font-size: 14px; /* Reduzindo o tamanho dos detalhes para dispositivos móveis */
+                margin-bottom: 10px;
+            }
+            .curso-link {
+                padding: 8px 16px; /* Reduzindo o padding do link para dispositivos móveis */
+                margin-bottom: 8px; /* Reduzindo a margem inferior do link para dispositivos móveis */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="disciplina-container">
+        <div class="titulo">{{ disciplina.nome }}</div>
+        <div class="detalhes">
+            <p><strong>Ano:</strong> {{ disciplina.ano }}</p>
+            <p><strong>Semestre:</strong> {{ disciplina.semestre }}</p>
+            <p><strong>Ects:</strong> {{ disciplina.ects }}</p>
+            <p><strong>Código:</strong> {{ disciplina.code }}</p>
+            <p><strong>Conteúdos Programáticos:</strong> {{ disciplina.conteudos }}</p>
+            <p>{{ disciplina.area_cientifica }}</p>
+        </div>
+        <div class="titulo">Projetos:</div>
+        <ul>
+            {% for projeto in projetos %}
+                <li>
+                    <a class="curso-link" href="{% url 'cursoLei:detalhes_projeto' projeto.nome %}">
+                        {{ projeto.nome }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

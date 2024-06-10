@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão Meteorológica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Previsão Meteorológica para os Próximos 5 Dias em {{ city_name }}</h1>
+
+        <ul>
+            {% for forecast in forecasts %}
+                <li>
+                    <p>Data: {{ forecast.date }}</p>
+                    <p>Temperatura Mínima: {{ forecast.temp_min }}°C</p>
+                    <p>Temperatura Máxima: {{ forecast.temp_max }}°C</p>
+                    <p>Descrição do Tempo: {{ forecast.weather_description }}</p>
+                    <img src="{{ forecast.icon }}" alt="Icone do tempo">
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="button-container">
+            <a href="{% url 'today_weather' %}" class="button">Ver Previsão para Hoje</a>
+            <a href="{% url 'lista_cidades' %}" class="button">Json Cidades</a>
+            <a href="{% url 'city_list' %}" class="button">Voltar para a Lista de Cidades</a>
+        </div>
+    </div>
+</body>
+</html>

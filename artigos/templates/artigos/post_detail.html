@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.titulo }}</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding-top: 50px; /* Espaço entre o topo da página e o conteúdo */
+        }
+
+        h1 {
+            margin-bottom: 55px; /* Espaço abaixo do título */
+        }
+
+        p {
+            margin-bottom: 50px; /* Espaço abaixo do parágrafo */
+        }
+
+        .post-image {
+            margin: 0 auto 40px auto; /* Centraliza a imagem e adiciona espaço abaixo */
+            max-width: 150%; /* Define a largura máxima da imagem como 150% */
+            height: auto; /* Altura automática para manter a proporção */
+            margin-bottom: 30px;
+        }
+
+        .comments-link {
+            display: block; /* Exibe o link como bloco para ocupar a largura total */
+            padding: 10px 20px; /* Define o padding do link */
+            background-color: #007bff; /* Cor de fundo azul */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px auto 0 auto; /* Centraliza o link e adiciona espaço acima */
+            width: fit-content; /* Define a largura do link para se ajustar ao conteúdo */
+        }
+
+        .comments-link:hover {
+            background-color: #0056b3; /* Cor de fundo azul mais escura ao passar o mouse */
+        }
+
+        .comment-form {
+            display: none; /* Esconde o formulário de comentário */
+        }
+
+        /* Estilos para o botão de voltar */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para a seção de rating */
+        .rating-section {
+            margin-top: 50px; /* Espaço acima da seção de rating */
+            margin-bottom: 50px; /* Espaço abaixo da seção de rating */
+        }
+
+        .rating-text {
+            color: #FFD700; /* Cor amarela para o texto do rating */
+            font-size: 24px; /* Tamanho da fonte do rating */
+        }
+
+        /* Estilos para o botão de ir para o rating */
+        .goto-rating-button {
+            display: block; /* Exibe o botão como bloco para ocupar a largura total */
+            background-color: #9400D3; /* Cor roxa para o botão */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 20px auto; /* Centraliza o botão e adiciona espaço acima */
+            width: fit-content; /* Define a largura do botão para se ajustar ao conteúdo */
+        }
+        .goto-rating-button:hover {
+            background-color: #7B68EE; /* Cor roxa mais escura ao passar o mouse */
+        }
+
+        /* Estilos para o botão Login/Logout */
+        .login-logout-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: {% if user.is_authenticated %} #dc3545; {% else %} #28a745; {% endif %} /* Cor vermelha para o botão Logout e verde para o botão Login */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .login-logout-button:hover {
+            background-color: {% if user.is_authenticated %} #c82333; {% else %} #218838; {% endif %} /* Cor vermelha mais escura ao passar o mouse para o botão Logout e verde mais escuro ao passar o mouse para o botão Login */
+        }
+
+        /* Regras de mídia para dispositivos móveis */
+        @media (max-width: 600px) {
+            .post-image {
+                margin-bottom: 20px; /* Reduzindo o espaço abaixo da imagem para dispositivos móveis */
+            }
+
+            .comments-link {
+                padding: 8px 16px; /* Reduzindo o padding do link para dispositivos móveis */
+            }
+
+            /* Estilos para o botão de voltar */
+            .back-button {
+                padding: 8px 16px; /* Reduzindo o padding do botão para dispositivos móveis */
+            }
+
+            /* Estilos para o botão de ir para o rating */
+            .goto-rating-button {
+                padding: 8px 16px; /* Reduzindo o padding do botão para dispositivos móveis */
+            }
+
+            /* Estilos para o botão Login/Logout */
+            .login-logout-button {
+                padding: 8px 16px; /* Reduzindo o padding do botão para dispositivos móveis */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão para voltar à lista de posts -->
+    <a href="{% url 'artigos:post_list' %}" class="back-button">Voltar para a lista de posts</a>
+
+    <h1>{{ post.titulo }}</h1>
+    <p>Data de Publicação: {{ post.data }}</p>
+    <div class="post-image">
+        <img src="{{ post.foto.url }}" alt="Foto do Post" style="max-width: 100%;">
+    </div>
+
+    <!-- Link para os comentários -->
+    <a href="{% url 'artigos:comment_list' post.id %}" class="comments-link">Ver Comentários</a>
+
+    <!-- Link para adicionar um novo comentário -->
+    {% if user.is_authenticated %}
+    <a href="{% url 'artigos:add_comment' post.id %}" class="comments-link">Adicionar Comentário</a>
+    {% endif %}
+
+    <!-- Botão de Login/Logout -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'artigos:login' %}" class="login-logout-button">Logout</a>
+    {% else %}
+        <a href="{% url 'artigos:login' %}" class="login-logout-button">Login</a>
+    {% endif %}
+
+    <!-- Seção de rating -->
+    <div class="rating-section">
+        <a href="{% url 'artigos:post_ratings' post.id %}" class="goto-rating-button">Ir para o rating</a>
+    </div>
+</body>
+</html>
+

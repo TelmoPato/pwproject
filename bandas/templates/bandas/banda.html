@@ -1,0 +1,170 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}{{ banda.nome }}{% endblock %}
+
+{% block content %}
+    <style>
+         .band-name {
+            margin-top: 50px;
+            font-size: 42px;
+            margin-bottom: 38px;
+            color: #FF4500;
+        }
+
+        .band-photo {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .band-photo img {
+            width: 300px; /* Definindo um tamanho fixo para as imagens */
+            height: auto;
+            border-radius: 5px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            margin-top: 70px;
+        }
+
+        .link-box {
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .link-box a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+
+        .album-delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .album-delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .add-album-button {
+            display: block;
+            margin: 0 auto 20px auto; /* Centralizando o botão */
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .add-album-button:hover {
+            background-color: #218838;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .back-link-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .back-link {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-link::before {
+            content: "\25C0"; /* Código Unicode para seta para a esquerda */
+            margin-right: 5px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .band-name {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .link-box a {
+                font-size: 16px;
+            }
+
+            .add-album-button {
+                width: 150px;
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <h1 class="band-name">{{ banda.nome }}</h1>
+
+    <div class="band-photo">
+        <img src="{{ banda.foto.url }}" alt="{{ banda.nome }}">
+    </div>
+
+    <p>Ano de Criação: {{ banda.ano_criacao }}</p>
+    <p>Nacionalidade: {{ banda.nacionalidade }}</p>
+
+    <h2>Álbuns:</h2>
+    {% for album in albuns %}
+        <div class="link-box">
+            <a href="{% url 'bandas:album' album.titulo %}">{{ album.titulo }}</a>
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'bandas:apagar_album' album.titulo %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="album-delete-btn">Apagar</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'bandas:novo_album' banda_nome=banda.nome %}" class="add-album-button">Adicionar Novo Álbum</a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'bandas:login' %}?next={% url 'bandas:login' %}" class="logout-button">Logout</a>
+    {% endif %}
+
+    <div class="back-link-container">
+        <a href="{% url 'bandas:lista_bandas' %}" class="back-link">Voltar para Lista de Bandas</a>
+    </div>
+{% endblock %}

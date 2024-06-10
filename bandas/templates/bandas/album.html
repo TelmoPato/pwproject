@@ -1,0 +1,155 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}{{ album.titulo }}{% endblock %}
+
+{% block content %}
+    <style>
+        .album-title {
+            margin-top: 30px;
+            font-size: 45px;
+            margin-bottom: 40px;
+            color: #800080;
+        }
+
+        .album-photo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .album-photo img {
+            width: 300px; /* Definindo um tamanho fixo para as imagens */
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .album-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .music-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .music-box {
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .music-box a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .music-box a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        h3 {
+            font-size: 34px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .back-link::before {
+            content: "\25C0";
+            margin-right: 5px;
+        }
+
+        .add-music-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .auth-button {
+            display: none;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .album-title {
+                font-size: 30px;
+            }
+
+            .music-box a {
+                font-size: 14px;
+            }
+
+            .add-music-button {
+                width: 150px;
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <h2 class="album-title">{{ album.titulo }}</h2>
+
+    <div class="album-photo">
+        <img src="{{ album.imagem.url }}" alt="{{ album.titulo }}">
+    </div>
+
+    <p class="album-info">Ano de Lançamento: {{ album.ano_lancamento }}</p>
+    <p class="album-info">Banda: {{ album.banda.nome }}</p>
+
+    <h3>Músicas:</h3>
+    <ul class="music-list">
+        {% for musica in musicas %}
+            <li class="music-box">
+                <a href="{% url 'bandas:musica' musica.titulo %}">{{ musica.titulo }}</a>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'bandas:apagar_musica' musica.titulo %}">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-music-button">Apagar</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'bandas:banda' album.banda.nome %}" class="back-link">Voltar para {{ album.banda.nome }}</a>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'bandas:nova_musica' album.titulo %}" class="add-music-button">Adicionar Nova Música</a>
+
+    {% else %}
+        <a href="{% url 'bandas:login' %}" class="add-music-button auth-button">Adicionar Nova Música</a>
+    {% endif %}
+{% endblock %}

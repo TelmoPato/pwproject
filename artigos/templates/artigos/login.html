@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Alterado para exibir elementos um abaixo do outro */
+            align-items: center; /* Centralizar horizontalmente */
+            justify-content: flex-start; /* Alinhar ao topo */
+            min-height: 100vh;
+        }
+
+        form {
+            width: 300px;
+            margin-top: 50px; /* Espaço entre o topo da página e o formulário */
+            text-align: center; /* Centralizar elementos dentro do formulário */
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none; /* Removendo sublinhado */
+            transition: color 0.3s ease; /* Transição suave da cor */
+        }
+
+        a:hover {
+            color: #0056b3; /* Cor ao passar o mouse */
+        }
+
+        /* Estilo para separador */
+        .separator {
+            margin: 10px;
+        }
+
+        .logout-button {
+            text-align: center;
+            margin-top: 20px; /* Espaço acima do botão */
+        }
+
+        .logout-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Regras de mídia para dispositivos móveis */
+        @media (max-width: 600px) {
+            form {
+                width: 80%; /* Reduzindo a largura do formulário para dispositivos móveis */
+            }
+
+            .logout-button {
+                margin-top: 10px; /* Reduzindo o espaçamento acima do botão para dispositivos móveis */
+            }
+
+            .logout-button a {
+                padding: 8px 16px; /* Reduzindo o preenchimento do botão para dispositivos móveis */
+            }
+
+            h2 {
+                font-size: 24px; /* Reduzindo o tamanho do título para dispositivos móveis */
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <h2>Login</h2>
+
+        {% if mensagem %}
+            <p>mensagem: {{ mensagem }}</p>
+        {% endif %}
+        <form action="{% url 'artigos:login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username.." required>
+            <input type="password" name="password" placeholder="Password.." required>
+            <input type="submit" value="Continuar">
+        </form>
+
+        <div class="logout-button">
+            <form action="{% url 'artigos:logout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Continuar sem login">
+            </form>
+        </div>
+
+
+    <div style="margin-top: 20px;"> <!-- Espaço entre o formulário e os links -->
+        <a href="{% url 'artigos:registo' %}">Registar</a> |
+        <a href="{% url 'artigos:recuperar_senha' %}">Recuperar Password</a>
+    </div>
+</body>
+</html>

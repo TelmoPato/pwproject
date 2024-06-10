@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Avaliações do Post</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding-top: 50px; /* Espaço entre o topo da página e o conteúdo */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Espaço abaixo do título */
+        }
+
+        ul {
+            list-style-type: none; /* Remove os marcadores da lista */
+            padding: 0; /* Remove o preenchimento padrão da lista */
+            margin: 0 auto; /* Centraliza a lista */
+            width: 50%; /* Define a largura da lista */
+        }
+
+        li {
+            margin-top: 30px;
+            margin-bottom: 20px; /* Espaço abaixo de cada item da lista */
+            font-size: 32px; /* Tamanho da fonte */
+        }
+
+        /* Regras de estilo para telas menores que 600px */
+        @media (max-width: 600px) {
+            ul {
+                width: 90%; /* Reduzindo a largura da lista para telas menores */
+            }
+
+            li {
+                font-size: 24px; /* Reduzindo o tamanho da fonte para telas menores */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Avaliações do Post</h1>
+    <ul>
+        {% for rating in ratings %}
+            <li>Rating: {{ rating.valor }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

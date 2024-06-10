@@ -1,0 +1,47 @@
+<!-- lista_bandas_sbotao.html -->
+
+{% extends 'bandas/layout.html' %}
+
+{% block content %}
+    <style>
+        .band-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .band-item {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .band-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .band-link:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+
+    <h2>Lista de Bandas</h2>
+    <ul class="band-list">
+        {% for banda in bandas %}
+            <li class="band-item">
+                <a href="{% url 'bandas:banda' banda.nome|slugify %}" class="band-link">{{ banda.nome }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

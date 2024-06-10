@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Curso</title>
+    <style>
+        body {
+            background-color: #000; /* Cor de fundo preta */
+            color: #fff; /* Cor do texto branco */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* Defina a posição relativa para o body */
+        }
+        .curso-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            position: relative; /* Defina a posição relativa para o container */
+        }
+        .titulo {
+            font-size: 36px; /* Tamanho maior para o título */
+            margin-bottom: 30px;
+            margin-top: 40px;
+        }
+        .detalhes {
+            font-size: 18px; /* Tamanho maior para os detalhes */
+            margin-bottom: 20px;
+        }
+        .disciplina-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #3498db; /* Cor de fundo do link */
+            color: #fff; /* Cor do texto do link */
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .disciplina-link:hover {
+            background-color: #2980b9; /* Cor de fundo do link quando hover */
+        }
+        .apagar-disciplina-button {
+            display: inline-block;
+        }
+        .apagar-disciplina-button button {
+            background-color: red; /* Cor de fundo vermelha para o botão "Apagar" */
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .apagar-disciplina-button button:hover {
+            background-color: darkred; /* Cor de fundo vermelha mais escura quando hover */
+        }
+        /* Estilo apenas para os títulos das seções */
+        .detalhes p strong {
+            color: #800080; /* Cor roxa */
+            text-decoration: underline; /* Sublinhado */
+        }
+        .adicionar-disciplina-button {
+            background-color: #3498db; /* Cor de fundo azul para o botão "Adicionar Disciplina" */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+            width: fit-content; /* A largura será ajustada ao conteúdo */
+            display: {% if user.is_authenticated %}block{% else %}none{% endif %}; /* Exibir apenas se o usuário estiver autenticado */
+        }
+        .adicionar-disciplina-button:hover {
+            background-color: #2980b9; /* Cor de fundo azul mais escura quando hover */
+        }
+        .login-button {
+            background-color: green; /* Cor de fundo verde para o botão de login */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* Defina a posição absoluta para o botão */
+            top: 10px; /* Posicione 10px a partir do topo */
+            right: 10px; /* Posicione 10px a partir da direita */
+            display: {% if user.is_authenticated %}none{% else %}block{% endif %}; /* Exibir apenas se o usuário não estiver autenticado */
+        }
+        .logout-button {
+            background-color: red; /* Cor de fundo vermelha para o botão de logout */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* Defina a posição absoluta para o botão */
+            top: 10px; /* Posicione 10px a partir do topo */
+            right: 10px; /* Posicione 10px a partir da direita */
+            display: {% if user.is_authenticated %}block{% else %}none{% endif %}; /* Exibir apenas se o usuário estiver autenticado */
+        }
+        .voltar-button {
+            background-color: #3498db; /* Cor de fundo azul para o botão "Voltar" */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* Defina a posição absoluta para o botão */
+            top: 10px; /* Posicione 10px a partir do topo */
+            left: 10px; /* Posicione 10px a partir da esquerda */
+            text-decoration: none;
+        }
+        .voltar-button:hover {
+            background-color: #2980b9; /* Cor de fundo azul mais escura quando hover */
+        }
+
+        /* Estilos para telas menores que 600px */
+        @media screen and (max-width: 600px) {
+            .titulo {
+                font-size: 24px;
+                margin-top: 20px; /* Reduzir a margem superior */
+            }
+            .detalhes {
+                font-size: 16px;
+            }
+            .disciplina-link {
+                padding: 8px 16px;
+            }
+            .apagar-disciplina-button button {
+                padding: 4px 8px;
+            }
+            .adicionar-disciplina-button,
+            .logout-button,
+            .login-button,
+            .voltar-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        /* Estilos para telas menores que 400px */
+        @media screen and (max-width: 400px) {
+            .titulo {
+                font-size: 20px;
+            }
+            .detalhes {
+                font-size: 14px;
+            }
+            .disciplina-link {
+                padding: 6px 12px;
+            }
+            .apagar-disciplina-button button {
+                padding: 2px 4px;
+            }
+            .adicionar-disciplina-button,
+            .logout-button,
+            .login-button,
+            .voltar-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="curso-container">
+          
+        <div class="titulo">{{ curso.nome }}</div>
+        <div class="detalhes">
+            <p><strong>Apresentação:</strong></p>
+            <p>{{ curso.apresentacao }}</p>
+            <p><strong>Objetivos:</strong></p>
+            <p>{{ curso.objetivos }}</p>
+            <p><strong>Competências:</strong></p>
+            <p>{{ curso.competencias }}</p>
+        </div>
+        <div class="titulo">Disciplinas</div>
+        <ul>
+            {% for disciplina in disciplinas %}
+                <li>
+                    <a class="disciplina-link" href="{% url 'cursoLei:detalhes_disciplina' disciplina.nome %}">
+                        {{ disciplina.nome }}
+                        {% if user.is_authenticated %}
+                        <div class="apagar-disciplina-button">
+                            <form action="{% url 'cursoLei:apagar_disciplina' curso_nome=curso.nome disciplina_id=disciplina.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Apagar</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if user.is_authenticated %}
+        <a class="adicionar-disciplina-button" href="{% url 'cursoLei:adicionar_disciplina' curso_nome=curso.nome %}">Adicionar Disciplina</a>
+        <a class="logout-button" href="{% url 'cursoLei:login' %}">Logout</a>
+        {% else %}
+        <a class="login-button" href="{% url 'cursoLei:login' %}">Login</a>
+        {% endif %}
+        <a class="voltar-button" href="{% url 'cursoLei:lista_cursos' %}">Voltar para Lista de Cursos</a>
+    </div>
+</body>
+</html>
+

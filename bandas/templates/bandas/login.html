@@ -1,0 +1,56 @@
+{% extends 'bandas/layout.html' %}
+
+{% block content %}
+    <style>
+        /* Estilos adicionais aqui */
+        .logout-button {
+            margin-top: 20px; /* Adicionando espaço acima do botão */
+        }
+
+        /* Adicionando regras de mídia para dispositivos móveis */
+        @media only screen and (max-width: 600px) {
+            form {
+                margin-bottom: 20px; /* Adicionando espaço abaixo do formulário */
+            }
+
+            input[type="text"],
+            input[type="password"],
+            input[type="submit"] {
+                width: 100%; /* Fazendo os inputs ocuparem a largura total */
+                margin-bottom: 10px; /* Adicionando espaço entre os inputs */
+            }
+        }
+    </style>
+
+    <h2>Login</h2>
+
+    {% if mensagem %}
+        <p>mensagem: {{ mensagem }}</p>
+    {% endif %}
+    <form action="{% url 'bandas:login' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username.." required>
+        <input type="password" name="password" placeholder="Password.." required>
+        <input type="submit" value="Continuar">
+    </form>
+
+    <a href="{% url 'bandas:registo' %}">Registar</a> | <a href="{% url 'bandas:recuperar_senha' %}">Recuperar Password</a>
+
+    <!-- Botão para continuar sem login -->
+    <div class="logout-button"> <!-- Adicionando espaço acima do botão -->
+        <form action="{% url 'bandas:logout' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Continuar sem login">
+        </form>
+    </div>
+
+    {% if user.is_authenticated %}
+        <!-- Botão para fazer logout -->
+        <div class="logout-button"> <!-- Adicionando espaço acima do botão -->
+            <form action="{% url 'bandas:logout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

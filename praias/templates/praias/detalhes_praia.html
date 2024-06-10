@@ -1,0 +1,24 @@
+{% extends 'praias/layout.html' %}
+
+{% block title %}
+    Detalhes da Praia
+{% endblock %}
+
+{% block content %}
+    <!-- Conteúdo da página com margem superior -->
+    <div style="margin-top: 100px;">
+        <!-- Detalhes da Praia -->
+        <h2 style="font-size: 24px; font-weight: bold; color: black;">{{ praia.nome }}, {{ praia.regiao.nome }}</h2>
+        <h3>Serviços Disponíveis:</h3>
+        <ul style="margin-left: 0;">
+            {% for servico in praia.servicos_disponiveis.all %}
+                <li>{{ servico.nome }}</li>
+            {% endfor %}
+        </ul>
+        <img src="{{ praia.foto.url }}" alt="{{ praia.nome }}">
+        <!-- Link para voltar para a página da lista de praias -->
+        <div style="margin-top: 20px;">
+            <a href="{% url 'lista_praias' %}">Voltar para a lista de praias</a>
+        </div>
+    </div>
+{% endblock %}

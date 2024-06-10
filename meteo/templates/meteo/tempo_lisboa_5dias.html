@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do Tempo para Lisboa - Próximos 5 Dias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .forecast {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .forecast p {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .forecast img {
+            width: 100px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .forecast p {
+                font-size: 18px;
+            }
+
+            .forecast img {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Previsão do Tempo para {{ city_name }} - Próximos 5 Dias</h1>
+        {% for forecast in forecasts %}
+        <div class="forecast">
+            <p><strong>Data:</strong> {{ forecast.date }}</p>
+            <p><strong>Temperatura Mínima:</strong> {{ forecast.temp_min }} °C</p>
+            <p><strong>Temperatura Máxima:</strong> {{ forecast.temp_max }} °C</p>
+            <p><strong>Descrição do Tempo:</strong> {{ forecast.weather_description }}</p>
+            <img src="{{ forecast.icon }}" alt="Ícone do tempo">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

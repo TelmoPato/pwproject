@@ -1,0 +1,119 @@
+{% extends 'bandas/layout.html' %}
+
+{% block content %}
+    <style>
+        /* Estilos adicionais aqui */
+        .music-title {
+            font-size: 30px; /* Aumentando o tamanho da fonte do título da música */
+            margin-bottom: 30px; /* Adicionando espaço abaixo do título da música */
+            color: #800080; /* Alterando a cor do título da música para roxo */
+            margin-top: 28px;
+        }
+
+        .music-info {
+            font-size: 18px;
+            margin-bottom: 10px; /* Adicionando espaço abaixo das informações da música */
+        }
+
+        .back-link-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .back-link {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-link::before {
+            content: "\25C0";
+            margin-right: 5px;
+        }
+
+        .lyrics-container {
+            margin-top: 20px;
+        }
+
+        .lyrics {
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .show-lyrics-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Adicionando regras de mídia para dispositivos móveis */
+        @media only screen and (max-width: 600px) {
+            .music-title {
+                font-size: 24px; /* Reduzindo o tamanho da fonte do título da música para dispositivos móveis */
+            }
+
+            .music-info {
+                font-size: 14px; /* Reduzindo o tamanho da fonte das informações da música para dispositivos móveis */
+            }
+
+            .back-link-container {
+                top: 10px;
+                right: 10px;
+            }
+
+            .back-link {
+                padding: 4px 8px;
+                font-size: 14px;
+            }
+
+            .lyrics-container {
+                margin-top: 10px;
+            }
+
+            .lyrics {
+                padding: 10px;
+            }
+
+            .show-lyrics-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <h2 class="music-title">{{ musica.titulo }}</h2>
+
+    <p class="music-info">Ano: {{ musica.ano }}</p>
+    <p class="music-info">Duração: {{ musica.duracao }}</p>
+    <p class="music-info">Álbum: {{ musica.album.titulo }}</p>
+    <p class="music-info">Banda: {{ musica.album.banda.nome }}</p>
+
+    <div class="back-link-container">
+        <a href="{% url 'bandas:album' musica.album.titulo %}" class="back-link">Voltar para {{ musica.album.titulo }}</a>
+    </div>
+
+    <div class="lyrics-container">
+        <button id="show-lyrics-button" class="show-lyrics-button">Ver Letra</button>
+        <div id="lyrics" class="lyrics" style="display: none;">
+            {{ musica.letra }}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('show-lyrics-button').addEventListener('click', function() {
+            document.getElementById('lyrics').style.display = 'block';
+            this.style.display = 'none';
+        });
+    </script>
+{% endblock %}

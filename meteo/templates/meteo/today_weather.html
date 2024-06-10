@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão de Hoje - Lisboa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Adicionamos esta linha */
+        }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-direction: column; /* Adicionamos esta linha */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        img {
+            max-width: 150px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer-button {
+            margin-top: 40px;
+        }
+
+        .footer-button .button {
+            background-color: #666;
+        }
+
+        .footer-button .button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-content">
+        <div class="container">
+            <h1>Previsão Meteorológica para Hoje em {{ city_name }}</h1>
+            <p>Data: {{ date }}</p>
+            <p>Temperatura Mínima: {{ temp_min }}°C</p>
+            <p>Temperatura Máxima: {{ temp_max }}°C</p>
+            <p>Descrição do Tempo: {{ weather_description }}</p>
+            <img src="{{ icon }}" alt="Icone do tempo">
+            <a href="{% url 'five_days_weather' %}" class="button">Previsão para os próximos 5 dias</a>
+        </div>
+        <div class="footer-button"> <!-- Movemos o botão para baixo -->
+            <a href="{% url 'lista_cidades' %}" class="button">Ver Cidades Disponíveis</a>
+        </div>
+    </div>
+</body>
+</html>

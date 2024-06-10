@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Meus Sites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+            margin-top: 40px; /* Mais espaço abaixo do título */
+        }
+
+        .site-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .site-list li {
+            margin-bottom: 20px;
+        }
+
+        .site-list li a {
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .site-list li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .back-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-top: 20px; /* Espaço acima do botão */
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-top: 20px; /* Ajustar espaço acima do título */
+                margin-bottom: 30px; /* Ajustar espaço abaixo do título */
+            }
+
+            .site-list li a {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            .back-button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-top: 20px; /* Ajustar espaço acima do título */
+                margin-bottom: 20px; /* Ajustar espaço abaixo do título */
+            }
+
+            .site-list li a {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .back-button {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Os Meus Sites</h1>
+        <ul class="site-list">
+            <li><a href="https://a22206983.pythonanywhere.com/bandas/">Site Bandas</a></li>
+            <li><a href="https://a22206983.pythonanywhere.com/cursoLei/">Site Curso</a></li>
+            <li><a href="https://a22206983.pythonanywhere.com/artigos/">Site Artigos</a></li>
+            <li><a href="https://a22206983.pythonanywhere.com/meteo/">Site Metereologia Lisboa</a></li>
+            <li><a href="https://a22206983.pythonanywhere.com/meteo/five-days/">Site Metereologia Cidades</a></li>
+            <li><a href="https://a22206983.pythonanywhere.com/praias/lista-praias/">Site Praias</a></li>
+        </ul>
+        <a href="https://a22206983.pythonanywhere.com/" class="back-button">Voltar</a>
+    </div>
+</body>
+</html>

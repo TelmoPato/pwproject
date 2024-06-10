@@ -1,0 +1,9 @@
+{% block content %}
+    <!-- Conteúdo específico para a página de recuperação de senha -->
+    <h2>Recuperar Senha</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar Email de Recuperação</button>
+    </form>
+{% endblock %}

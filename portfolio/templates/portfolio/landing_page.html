@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .header-title {
+            margin: 0;
+            padding-bottom: 20px;
+        }
+
+        .header-title a {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s ease;
+            padding: 0 10px;
+        }
+
+        .nav-links span {
+            color: white;
+        }
+
+        .nav-links a:hover {
+            color: #ddd;
+        }
+
+        .hero-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero-section h2 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .hero-section .button {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-section .button:hover {
+            background-color: #555;
+        }
+
+        .hero-section img {
+            margin-top: 20px;
+            max-width: 70%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .inspirational-quote {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: white;
+        }
+
+        body.dark-mode header {
+            background-color: #555;
+        }
+
+        body.dark-mode .hero-section h2 {
+            color: white;
+        }
+
+        body.dark-mode .hero-section p {
+            color: #ddd;
+        }
+
+        .dark-mode-toggle {
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .date-time {
+            font-size: 18px;
+            color: white;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .dark-mode .date-time {
+            color: #ddd;
+        }
+
+        /* Login/Logout button styles */
+        .auth-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero-section h2 {
+                font-size: 28px;
+            }
+
+            .hero-section p {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .date-time {
+                font-size: 16px;
+            }
+
+            .hero-section img {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h2 {
+                font-size: 24px;
+            }
+
+            .hero-section p {
+                font-size: 14px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .date-time {
+                font-size: 14px;
+            }
+
+            .hero-section img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="date-time" id="date-time"></div>
+        <div class="header-title">
+            <a href="{% url 'landing_page' %}">Portfólio</a>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'sites_list' %}">Sites</a>
+            <span>|</span>
+            <a href="{% url 'about_me' %}">Sobre Mim</a>
+            <span>|</span>
+            <a href="{% url 'video_django' %}">Video Django</a>
+            <span>|</span>
+            <a href="{% url 'video_sites' %}">Video Sites</a>
+            <span>|</span>
+            <a href="{% url 'social_links' %}">Redes Sociais</a>
+        </div>
+        {% if user.is_authenticated %}
+            <form action="{% url 'login' %}" method="post" style="position: absolute; top: 10px; right: 20px;">
+                {% csrf_token %}
+                <button type="submit" class="auth-button logout-button">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="auth-button login-button">Login</a>
+        {% endif %}
+    </div>
+</header>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h2>Bem-vindo, chamo-me Telmo Pato</h2>
+            <img src="/static/portfolio/imagemProgamacao.jpg" alt="Imagem inspiracional">
+            <p class="inspirational-quote">"A única maneira de fazer um ótimo trabalho é amar o que você faz." - Steve Jobs</p>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    function updateDateTime() {
+        const dateTimeElement = document.getElementById('date-time');
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString();
+        const formattedDate = now.toLocaleDateString();
+        dateTimeElement.textContent = `Data: ${formattedDate} | Hora: ${formattedTime}`;
+    }
+
+    // Update the date and time every second
+    setInterval(updateDateTime, 1000);
+
+    // Initial call to display the date and time immediately
+    updateDateTime();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Posts</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin-top: 60px;
+            margin-bottom: 50px;
+        }
+
+        .post-box {
+            background-color: black;
+            margin-bottom: 20px;
+            border: 2px solid white;
+            border-radius: 10px;
+            display: flex; /* Alterado para flex para melhorar o layout */
+            align-items: center; /* Centralizando verticalmente */
+            justify-content: space-between; /* Distribuindo o espaço entre os elementos */
+            padding: 10px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .post-link {
+            color: white;
+            text-decoration: none;
+            flex-grow: 1; /* Para ocupar todo o espaço restante */
+        }
+
+        .post-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-button:hover {
+            background-color: #218838;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 0px;
+            right: 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .add-post-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .add-post-button:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-post-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .delete-post-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Regras de estilo para telas menores que 600px */
+        @media (max-width: 600px) {
+            .post-box {
+                width: 90%; /* Reduzindo a largura do post-box para telas menores */
+            }
+
+            .login-button,
+            .logout-button {
+                position: static; /* Removendo a posição absoluta */
+                margin-top: 10px; /* Adicionando um pequeno espaço entre o botão e o topo */
+                margin-right: 0; /* Removendo a margem direita */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: right;">
+        {% if user.is_authenticated %}
+            <a href="{% url 'artigos:login' %}" class="logout-button">Logout</a>
+        {% else %}
+            <a href="{% url 'artigos:login' %}" class="login-button">Login</a>
+        {% endif %}
+    </div>
+
+    <h1>Lista de Posts</h1>
+    <div>
+        {% for post in posts %}
+            <div class="post-box">
+                <a href="{% url 'artigos:post_detail' post.id %}" class="post-link">{{ post.titulo }}</a>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'artigos:delete_post' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-post-button">Apagar Artigo</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'artigos:add_post' %}" class="add-post-button">Adicionar Artigo</a>
+    {% endif %}
+</body>
+</html>

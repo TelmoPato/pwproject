@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comentários do Post</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding-top: 50px; /* Espaço entre o topo da página e o conteúdo */
+        }
+
+        h1 {
+            margin-bottom: 55px; /* Espaço abaixo do título */
+        }
+
+        ul {
+            list-style-type: none; /* Remove os marcadores da lista */
+            padding: 0; /* Remove o preenchimento padrão da lista */
+            margin-bottom: 50px; /* Espaço abaixo da lista */
+        }
+
+        li {
+            margin-bottom: 20px; /* Espaço abaixo de cada item da lista */
+        }
+
+        .comment-info {
+            display: flex; /* Use flexbox para alinhar os itens horizontalmente */
+            justify-content: center; /* Alinhe os itens horizontalmente ao centro */
+            margin-bottom: 10px; /* Espaço abaixo de cada par de informações de comentário */
+        }
+
+        .comment-info p {
+            margin: 0; /* Remova as margens padrão dos parágrafos */
+            margin-right: 10px; /* Adicione uma margem à direita para separar os itens */
+            color: white; /* Cor padrão do texto */
+        }
+
+        /* Estilizando o nome de utilizador */
+        .username {
+            color: #800080; /* Cor roxa */
+        }
+
+        /* Estilizando o comentário */
+        .comment {
+            color: #800080; /* Cor roxa */
+        }
+
+        /* Estilos para o botão "Voltar para Post" */
+        .back-to-post-button,
+        .login-button,
+        .logout-button {
+            position: fixed;
+            top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-to-post-button {
+            left: 20px;
+            background-color: green;
+            color: white;
+        }
+
+        .back-to-post-button:hover {
+            background-color: darkgreen;
+        }
+
+        .login-button {
+            right: 20px;
+            background-color: green;
+            color: white;
+        }
+
+        .login-button:hover {
+            background-color: darkgreen;
+        }
+
+        .logout-button {
+            right: 20px;
+            background-color: red;
+            color: white;
+        }
+
+        .logout-button:hover {
+            background-color: darkred;
+        }
+
+        /* Regras de mídia para dispositivos móveis */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px; /* Reduz o tamanho do título para dispositivos móveis */
+            }
+
+            .comment-info {
+                flex-direction: column; /* Altera a direção do flexbox para coluna */
+            }
+
+            .comment-info p {
+                margin-bottom: 5px; /* Espaço menor entre os itens de comentário */
+            }
+
+            .back-to-post-button,
+            .login-button,
+            .logout-button {
+                top: 10px; /* Ajusta a posição dos botões para dispositivos móveis */
+                padding: 8px 16px; /* Reduz o preenchimento dos botões */
+                font-size: 14px; /* Reduz o tamanho da fonte dos botões */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão para voltar ao Post -->
+    <a href="{% url 'artigos:post_detail' post.id %}" class="back-to-post-button">Voltar para Post</a>
+
+    <h1>Comentários do Post</h1>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <div class="comment-info">
+                    <p class="username">Nome de Utilizador:</p>
+                    <p class="username">{{ comment.nome }}</p>
+                    <p class="comment">Comentário:</p>
+                    <p class="comment">{{ comment.comentario }}</p>
+                    <!-- Botão para excluir comentário (aparece apenas se o usuário estiver autenticado) -->
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'artigos:delete_comment' comment.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Excluir Comentário</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Botão de Logout/Login -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'artigos:login' %}" class="logout-button">Logout</a>
+    {% else %}
+        <a href="{% url 'artigos:login' %}" class="login-button">Login</a>
+    {% endif %}
+</body>
+</html>

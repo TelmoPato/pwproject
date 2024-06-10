@@ -1,0 +1,77 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+    <style>
+        /* Estilos adicionais aqui */
+        form {
+            max-width: 600px; /* Definindo a largura máxima do formulário */
+            margin: 0 auto; /* Centralizando o formulário na página */
+        }
+
+        label {
+            display: block; /* Definindo rótulos como blocos para ocupar toda a largura do contêiner */
+            margin-bottom: 5px; /* Adicionando espaço entre os rótulos e os campos de entrada */
+            font-weight: bold; /* Definindo a fonte em negrito para os rótulos */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%; /* Definindo a largura dos campos de entrada como 100% */
+            padding: 10px; /* Adicionando preenchimento aos campos de entrada */
+            margin-bottom: 15px; /* Adicionando espaço entre os campos de entrada */
+            border-radius: 5px; /* Adicionando bordas arredondadas aos campos de entrada */
+            border: 1px solid #ccc; /* Adicionando uma borda sólida aos campos de entrada */
+            box-sizing: border-box; /* Definindo a caixa do modelo para incluir preenchimento e borda */
+            font-size: 16px; /* Definindo o tamanho da fonte para os campos de entrada */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; /* Definindo a cor de fundo do botão de envio */
+            color: #fff; /* Definindo a cor do texto do botão de envio */
+            border: none; /* Removendo a borda do botão de envio */
+            border-radius: 5px; /* Adicionando bordas arredondadas ao botão de envio */
+            padding: 10px 20px; /* Adicionando preenchimento ao botão de envio */
+            font-size: 16px; /* Definindo o tamanho da fonte do botão de envio */
+            cursor: pointer; /* Mudando o cursor para uma mão quando passar sobre o botão de envio */
+            transition: background-color 0.3s ease; /* Adicionando uma transição suave para a mudança de cor de fundo */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Mudando a cor de fundo do botão de envio ao passar o mouse sobre ele */
+        }
+
+        /* Adicionando regras de mídia para dispositivos móveis */
+        @media only screen and (max-width: 600px) {
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                font-size: 14px; /* Reduzindo o tamanho da fonte para os campos de entrada em dispositivos móveis */
+            }
+
+            input[type="submit"] {
+                font-size: 14px; /* Reduzindo o tamanho da fonte para o botão de envio em dispositivos móveis */
+                padding: 8px 16px; /* Ajustando o preenchimento do botão de envio em dispositivos móveis */
+            }
+        }
+    </style>
+
+    <h2>Registo</h2>
+
+    <form action="{% url 'registo' %}" method="post">
+        {% csrf_token %}
+        <label for="username">Nome de Utilizador:</label>
+        <input type="text" id="username" name="username" placeholder="Nome de Utilizador.." required>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="E-mail.." required>
+        <label for="first_name">Primeiro Nome:</label>
+        <input type="text" id="first_name" name="first_name" placeholder="Primeiro Nome.." required>
+        <label for="last_name">Último Nome:</label>
+        <input type="text" id="last_name" name="last_name" placeholder="Último Nome.." required>
+        <label for="password">Palavra-Passe:</label>
+        <input type="password" id="password" name="password" placeholder="Palavra-Passe.." required>
+        <input type="submit" value="Registar">
+    </form>
+
+    <p>Ou <a href="{% url 'sites_list' %}">pular o registo</a> e continuar para a lista de sites.</p>
+{% endblock %}

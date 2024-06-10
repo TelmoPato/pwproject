@@ -1,0 +1,27 @@
+{% extends 'praias/layout.html' %}
+
+{% block title %}
+    Praias por Região
+{% endblock %}
+
+{% block content %}
+    <!-- Lista de Praias -->
+    <ul style="margin-left: 0; margin-top: 100px;"> <!-- Aumentando a margem superior -->
+        {% for regiao in regioes %}
+            <h2>{{ regiao.nome }}</h2>
+            <ul style="margin-left: 0;">
+                {% for praia in regiao.praia_set.all %}
+                    <li>
+                        <!-- Nome da praia como link -->
+                        <a href="{% url 'detalhes_praia' praia.nome %}"><strong>{{ praia.nome }}</strong></a>: 
+                        
+                        <!-- Serviços da praia -->
+                        {% for servico in praia.servicos_disponiveis.all %}
+                            {{ servico.nome }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registo</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Alterado para centralizar verticalmente */
+            min-height: 100vh;
+        }
+
+        form {
+            width: 300px;
+            margin-top: 50px; /* Espaço entre o topo da página e o formulário */
+            text-align: center; /* Centralizar elementos dentro do formulário */
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none; /* Removendo sublinhado */
+            transition: color 0.3s ease; /* Transição suave da cor */
+        }
+
+        a:hover {
+            color: #0056b3; /* Cor ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <form action="{% url 'artigos:registo' %}" method="post">
+        {% csrf_token %}
+        <h2>Registo</h2>
+
+        {% if mensagem %}
+            <p>mensagem: {{ mensagem }}</p>
+        {% endif %}
+
+        <input type="text" name="username" placeholder="Username.." required>
+        <input type="email" name="email" placeholder="Email.." required>
+        <input type="text" name="first_name" placeholder="First Name.." required>
+        <input type="text" name="last_name" placeholder="Last Name.." required>
+        <input type="password" name="password" placeholder="Password.." required>
+        <input type="submit" value="Registar">
+
+        <p>Ou <a href="{% url 'artigos:post_list' %}">pular o registo</a> e continuar para a lista de artigos.</p>
+    </form>
+</body>
+</html>

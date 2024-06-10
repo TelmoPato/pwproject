@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Comentário</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding-top: 50px; /* Espaço entre o topo da página e o conteúdo */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Espaço abaixo do título */
+        }
+
+        .comment-form {
+            max-width: 500px; /* Largura máxima do formulário */
+            margin: 0 auto; /* Centraliza o formulário horizontalmente */
+        }
+
+        .comment-form textarea {
+            width: 100%; /* Define a largura do textarea como 100% da largura do formulário */
+            height: 100px; /* Altura do textarea */
+            margin-bottom: 10px; /* Espaço abaixo do textarea */
+        }
+
+        .comment-form input[type="submit"] {
+            padding: 10px 20px; /* Define o padding do botão */
+            background-color: #007bff; /* Cor de fundo azul */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form input[type="submit"]:hover {
+            background-color: #0056b3; /* Cor de fundo azul mais escura ao passar o mouse */
+        }
+
+        /* Regras de mídia para dispositivos móveis */
+        @media (max-width: 600px) {
+            .comment-form {
+                max-width: 90%; /* Reduz a largura máxima do formulário para dispositivos móveis */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Adicionar Comentário</h1>
+    <!-- Formulário de adição de comentário -->
+    <form class="comment-form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar Comentário">
+    </form>
+</body>
+</html>

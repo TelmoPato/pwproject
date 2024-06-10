@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cursos</title>
+    <style>
+        body {
+            background-color: #000; /* Cor de fundo preta */
+            color: #fff; /* Cor do texto branco */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* Defina a posição relativa para o body */
+        }
+        .curso-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            position: relative; /* Defina a posição relativa para o container */
+        }
+        .titulo {
+            font-size: 36px; /* Tamanho maior para o título */
+            margin-bottom: 30px;
+            margin-top: 55px;
+        }
+        .curso-link {
+            display: flex; /* Alterado para flex */
+            align-items: center; /* Alinhar itens verticalmente */
+            justify-content: space-between; /* Espaço entre os itens */
+            padding: 20px;
+            background-color: #3498db; /* Cor de fundo do link */
+            color: #fff; /* Cor do texto do link */
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%; /* Ocupar toda a largura disponível */
+            box-sizing: border-box; /* Incluir padding e borda na largura */
+        }
+        .curso-link:hover {
+            background-color: #2980b9; /* Cor de fundo do link quando hover */
+        }
+        .login-button {
+            background-color: green; /* Cor de fundo verde para o botão de login */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* Defina a posição absoluta para o botão */
+            top: 10px; /* Posicione 10px a partir do topo */
+            right: 10px; /* Posicione 10px a partir da direita */
+        }
+        .logout-button {
+            background-color: red; /* Cor de fundo vermelha para o botão de logout */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* Defina a posição absoluta para o botão */
+            top: 10px; /* Posicione 10px a partir do topo */
+            right: 10px; /* Posicione 10px a partir da direita */
+        }
+        .add-curso-button {
+            background-color: #3498db; /* Cor de fundo azul para o botão "Adicionar Curso" */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px; /* Adicione espaço acima do botão */
+        }
+        .delete-curso-button {
+            background-color: red; /* Cor de fundo vermelha para o botão "Apagar Curso" */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-curso-button:hover {
+            background-color: #c0392b; /* Cor de fundo vermelha mais escura quando hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="curso-container">
+        <div class="titulo">Lista de Cursos</div>
+
+        <!-- Adicione os botões de login/logout no canto superior direito -->
+        {% if user.is_authenticated %}
+            <form action="{% url 'cursoLei:login' %}" method="post">
+                {% csrf_token %}
+                <button class="logout-button" type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a class="login-button" href="{% url 'cursoLei:login' %}">Login</a>
+        {% endif %}
+
+        <!-- Lista de cursos -->
+        <ul>
+            {% for curso in cursos %}
+            <li>
+                <a class="curso-link" href="{% url 'cursoLei:detalhes_curso' curso.nome %}">
+                    <span>{{ curso.nome }}</span> <!-- Nome do curso -->
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'cursoLei:apagar_curso' curso.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="delete-curso-button" type="submit">Apagar Curso</button>
+                    </form>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Adicionar botão de "Adicionar Curso" apenas se o usuário estiver autenticado -->
+        {% if user.is_authenticated %}
+            <a class="add-curso-button" href="{% url 'cursoLei:adicionar_curso' %}">Adicionar Curso</a>
+        {% endif %}
+    </div>
+</body>
+</html>

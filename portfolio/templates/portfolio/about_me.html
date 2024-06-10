@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .content div h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .back-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .content {
+                gap: 15px;
+            }
+
+            .content div {
+                padding: 15px;
+            }
+
+            .content div h3 {
+                font-size: 20px;
+            }
+
+            .back-button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .content {
+                gap: 10px;
+            }
+
+            .content div {
+                padding: 10px;
+            }
+
+            .content div h3 {
+                font-size: 18px;
+            }
+
+            .back-button {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sobre Mim</h1>
+    </header>
+    <div class="container">
+        <section>
+            <h2>Interesses</h2>
+            <div class="content">
+                <div>
+                    <h3>Jogos</h3>
+                    <p>Gosto de jogar video jogos no Computador.</p>
+                </div>
+                <div>
+                    <h3>Desportos</h3>
+                    <p>Já fiz vários desportos: natação, futebol, judo, futsal e atualmente pratico tênis e faço ginásio para manter a forma física e a mente saudável.</p>
+                </div>
+                <!-- Adicione mais interesses conforme necessário -->
+            </div>
+        </section>
+        <section>
+            <h2>Aptidões</h2>
+            <div class="content">
+                <div>
+                    <h3>Programação</h3>
+                    <p>Tenho experiência em Python, Django, Java, C, C#, Kotlin.</p>
+                </div>
+                <div>
+                    <h3>Design</h3>
+                    <p>Experiência em CSS no pythonanywhere.</p>
+                </div>
+                <!-- Adicione mais aptidões conforme necessário -->
+            </div>
+        </section>
+        <section>
+            <h2>Competências</h2>
+            <div class="content">
+                <div>
+                    <h3>Desenvolvimento Web</h3>
+                    <p>Capacidade de criar websites e aplicações web funcionais e responsivas.</p>
+                </div>
+                <div>
+                    <h3>Projetos em Java</h3>
+                    <p>Experiência em realizar vários projetos em Java.</p>
+                </div>
+                <!-- Adicione mais competências conforme necessário -->
+            </div>
+        </section>
+        <section>
+            <h2>Experiência</h2>
+            <div class="content">
+                <div>
+                    <h3>Projetos Faculdade</h3>
+                    <ul>
+                        <li>Variedade de sites e projetos realizados durante a faculdade.</li>
+                        <li>Variedade de linguagens e ferramentas de trabalho para projetos.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Uso pessoal</h3>
+                    <ul>
+                        <li>Criação de miniprojetos e sites para consumo próprio.</li>
+                        <li>Realização de código para aprender novas funcionalidades.</li>
+                    </ul>
+                </div>
+                <!-- Adicione mais experiências conforme necessário -->
+            </div>
+        </section>
+        <a href="{% url 'landing_page' %}" class="back-button">Voltar</a>
+    </div>
+</body>
+</html>
